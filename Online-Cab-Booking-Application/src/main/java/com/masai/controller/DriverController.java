@@ -24,7 +24,7 @@ public class DriverController {
 	
 	
 	@PostMapping("/drivers")
-	public ResponseEntity<Driver> saveCustomer(@Valid @RequestBody Driver driver) throws DriverException {
+	public ResponseEntity<Driver> saveDrivers(@Valid @RequestBody Driver driver) throws DriverException {
 		
 		Driver savedDriver= dService.createDriver(driver);
 		
@@ -33,7 +33,7 @@ public class DriverController {
 	}
 	
 	@PutMapping("/drivers")
-	public  ResponseEntity<Driver> updateCustomer(@RequestBody Driver driver,@RequestParam(required = false) String key ) throws DriverException {
+	public  ResponseEntity<Driver> updateDrivers(@RequestBody Driver driver,@RequestParam(required = false) String key ) throws DriverException {
 		
 		
 		Driver updatedCustomer= dService.updateDriver(driver, key);
