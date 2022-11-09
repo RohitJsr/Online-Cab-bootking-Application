@@ -1,9 +1,6 @@
 package com.masai.controller;
 
-
-
-import org.springframework.beans.factory.annotation.Autowired; 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,18 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.LoginException;
 import com.masai.model.LoginDTO;
-import com.masai.service.LoginService;
+import com.masai.service.AdminLoginService;
+import com.masai.service.DriverLoginService;
+
 
 @RestController
-public class LoginController {
+public class LoginAdminController {
+
+	
 
 	@Autowired
-	private LoginService customerLogin;
+	private AdminLoginService adminLogin;
 	
-	@PostMapping("/login")
+	@PostMapping("/loginAdmin")
 	public ResponseEntity<String> logIn(@RequestBody LoginDTO dto) throws LoginException {
 		
-		String result = customerLogin.logIntoAccount(dto);
+		String result = adminLogin.logIntoAccount(dto);
 		
 
 		
@@ -34,12 +35,9 @@ public class LoginController {
 		
 	}
 	
-	@GetMapping("/logout")
+	@GetMapping("/logoutAdmin")
 	public String logout(@RequestParam(required = false) String key) throws LoginException {
-		return customerLogin.logOutFromAccount(key);
+		return adminLogin.logOutFromAccount(key);
 		
 	}
-	
-	
-	
 }

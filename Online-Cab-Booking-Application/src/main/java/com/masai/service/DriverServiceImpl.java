@@ -55,13 +55,16 @@ public class DriverServiceImpl implements DriverService{
 		
 		
 		if(driver.getDriverId() == loggedInUser.getUserId()) {
-			//If LoggedInUser id is same as the id of supplied Customer which we want to update
+		
 			return dDao.save(driver);
 		}
 		else
 			throw new DriverException("Invalid Driver Details, please login first");
+		
+		
 	
 	}
+	
 
 	
 }

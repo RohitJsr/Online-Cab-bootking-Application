@@ -32,7 +32,7 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/customers")
-	public  ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer,@RequestParam(required = false) String key ) throws CustomerException {
+	public  ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer,@RequestParam(required = false) String key ) throws CustomerException {
 		
 		
 		Customer updatedCustomer= cService.updateCustomer(customer, key);

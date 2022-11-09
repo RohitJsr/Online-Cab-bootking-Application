@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Admin {
+public class Admin extends User {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
