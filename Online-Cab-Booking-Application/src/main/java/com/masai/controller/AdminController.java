@@ -11,34 +11,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.DriverException;
+import com.masai.model.Admin;
 import com.masai.model.Driver;
+import com.masai.service.AdminService;
 import com.masai.service.DriverService;
 
 @RestController
-public class DriverController {
+public class AdminController {
 	
 	@Autowired
-	private DriverService dService;
+	private AdminService AService;
 	
 	
-	@PostMapping("/drivers")
-	public ResponseEntity<Driver> saveCustomer(@Valid @RequestBody Driver driver) throws DriverException {
+	@PostMapping("/admin")
+	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) throws AdminException {
 		
-		Driver savedDriver= dService.createDriver(driver);
+		Admin savedAdmin = AService.createAdmin(admin);
 		
 		
-		return new ResponseEntity<Driver>(savedDriver,HttpStatus.CREATED);
+		return new ResponseEntity<Admin>(savedAdmin,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/drivers")
-	public  ResponseEntity<Driver> updateCustomer(@Valid @RequestBody Driver driver,@RequestParam(required = false) String key ) throws DriverException {
+	@PutMapping("/admin")
+	public  ResponseEntity<Admin> updateCustomer(@Valid @RequestBody Admin admin,@RequestParam(required = false) String key ) throws AdminException {
 		
 		
-		Driver updatedCustomer= dService.updateDriver(driver, key);
+		Admin updatedCustomer= AService.updateAdmin(admin, key);
 				
-		return new ResponseEntity<Driver>(updatedCustomer,HttpStatus.OK);
+		return new ResponseEntity<Admin>(updatedCustomer,HttpStatus.OK);
 		
 	}
 	

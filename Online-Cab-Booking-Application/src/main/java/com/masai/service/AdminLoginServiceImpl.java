@@ -5,25 +5,20 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.masai.exceptions.LoginException;
+import com.masai.model.Admin;
 import com.masai.model.CurrentUserSession;
-import com.masai.model.Customer;
-import com.masai.model.Driver;
 import com.masai.model.LoginDTO;
-import com.masai.repository.CustomerDao;
-import com.masai.repository.DriverDao;
+import com.masai.repository.AdminDao;
 import com.masai.repository.SessionDao;
 
 import net.bytebuddy.utility.RandomString;
 
-
 @Service
-public class DriverLoginServiceImpl implements DriverLoginService{
-
+public class AdminLoginServiceImpl implements AdminLoginService{
 
 	@Autowired
-	private DriverDao dDao;
+	private AdminDao aDao;
 	
 	@Autowired
 	private SessionDao sDao;
@@ -34,13 +29,13 @@ public class DriverLoginServiceImpl implements DriverLoginService{
 	public String logIntoAccount(LoginDTO dto)throws LoginException{
 		
 		
-		Driver existingDriver= dDao.findByMobileNumber(dto.getMobileNumber());
+		Admin existingAdmin= aDao.findByMobileNumber(dto.getMobileNumber());
 		
 		
 	
 		
 		
-		if(existingDriver == null) {
+		if(existingAdmin == null) {
 			
 			throw new LoginException("Please Enter a valid mobile number");
 			
@@ -50,25 +45,25 @@ public class DriverLoginServiceImpl implements DriverLoginService{
 		
 		
 		
-		Optional<CurrentUserSession> validDriverSessionOpt =  sDao.findById(existingDriver.getDriverId());
+		Optional<CurrentUserSession> validAdminSessionOpt =  sDao.findById(existingAdmin.getAdminId());
 		
 		
 		
 		
 		
-		if(validDriverSessionOpt.isPresent()) {
+		if(validAdminSessionOpt.isPresent()) {
 			
 			throw new LoginException("User already Logged In with this number");
 			
 		}
 		
-		if(existingDriver.getPassword().equals(dto.getPassword())) {
+		if(existingAdmin.getPassword().equals(dto.getPassword())) {
 			
 			String key= RandomString.make(6);
 			
 			
 			
-			CurrentUserSession currentUserSession = new CurrentUserSession(existingDriver.getDriverId(),key,LocalDateTime.now());
+			CurrentUserSession currentUserSession = new CurrentUserSession(existingAdmin.getAdminId(),key,LocalDateTime.now());
 			
 			sDao.save(currentUserSession);
 
@@ -101,5 +96,8 @@ public class DriverLoginServiceImpl implements DriverLoginService{
 		
 	}
 
+
+	
+	
 
 }
