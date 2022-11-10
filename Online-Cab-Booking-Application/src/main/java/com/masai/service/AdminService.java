@@ -10,6 +10,8 @@ public interface AdminService {
 	 public Admin createAdmin(Admin Admin)throws AdminException;
 		
 	 public  Admin updateAdmin(Admin Admin,String key)throws AdminException;
+	 
+	 public Admin deleteAdmin(Integer adminId) throws AdminException;
 
 	
 }

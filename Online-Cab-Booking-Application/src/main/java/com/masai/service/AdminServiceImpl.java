@@ -61,6 +61,24 @@ public class AdminServiceImpl implements AdminService {
 		
 	
 	}
+
+	@Override
+	public Admin deleteAdmin(Integer adminId) throws AdminException {
+		// TODO Auto-generated method stub
+		
+		Admin admin = aDao.findByAdminId(adminId);
+		
+		if(admin != null) {
+			
+			aDao.delete(admin);
+			return admin;
+			
+		}else {
+			throw new AdminException("Admin not found with adminId :"+ adminId);
+		}
+		
+		
+	}
 	
 
 	
