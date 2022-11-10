@@ -1,5 +1,6 @@
 package com.masai.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,5 +19,8 @@ public class Admin extends User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
 	private Integer adminId;
+	
+	@Embedded
+	private User user;
 	
 }
