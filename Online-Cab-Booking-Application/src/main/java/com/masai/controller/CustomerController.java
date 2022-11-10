@@ -1,5 +1,7 @@
 package com.masai.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,21 @@ public class CustomerController {
 		Customer DeleteCustomer = cService.deleteCustomer(customerId);
 		
 		return new ResponseEntity<Customer>(DeleteCustomer,HttpStatus.OK);
+	}
+	
+	@GetMapping("/allCustomers")
+	public ResponseEntity<List<Customer>> findAllCustomer() throws CustomerException{
+		
+		List<Customer> customers = cService.viewCustomer();
+		
+		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+	}
+	@GetMapping("/findCustomerById")
+	public ResponseEntity<Customer> findCustomerById(@RequestParam Integer customerId) throws CustomerException{
+		Customer customer = cService.viewCustomer(customerId);
+		
+		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
+		
 	}
 	
 

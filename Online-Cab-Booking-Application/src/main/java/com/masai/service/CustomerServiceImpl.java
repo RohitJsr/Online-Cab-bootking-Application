@@ -1,5 +1,7 @@
 package com.masai.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service;
 
@@ -73,6 +75,34 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		
 	}
+
+	@Override
+	public List<Customer> viewCustomer() throws CustomerException {
+		// TODO Auto-generated method stub
+		List<Customer> customerList = cDao.findAll();
+		if(customerList.size() != 0) {
+			return customerList;
+		}
+		else {
+			throw new CustomerException("No Customer found");
+		}
+	
+	}
+
+	@Override
+	public Customer viewCustomer(Integer customerId) throws CustomerException {
+		// TODO Auto-generated method stub
+		Customer customer = cDao.findByCustomerId(customerId);
+		if(customer != null ) {
+			return customer;
+		}
+		else {
+			throw new CustomerException("No Customer found");
+		}
+
+	}
+    
+	
 		
 		
 	}
