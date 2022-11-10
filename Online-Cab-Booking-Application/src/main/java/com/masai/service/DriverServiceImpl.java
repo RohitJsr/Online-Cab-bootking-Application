@@ -26,24 +26,25 @@ public class DriverServiceImpl implements DriverService{
 	@Autowired
 	private SessionDao sDao;
 	
-	@Autowired
-	private CustomerDao cDao;
+
 	
-	
+	@Override
 	public Driver createDriver(Driver driver)throws DriverException {
 		
-        
-        Cab cab = driver.getCab();
+      
+		Driver existingdriver= dDao.findByMobileNumber(driver.getMobileNumber());
 		
-		CabType cabtype = cab.getCabtype();
-		cab.setSittingCapacity(cabtype.sittingCapacity());
-		cab.setPerKmRate((float) cabtype.getPrice());
-		driver.setCab(cab);
-		return dDao.save(driver);
+	
+		if(existingdriver != null ) 
+			throw new DriverException("Driver Already Registered with Mobile number");
+			
 		
+			return dDao.save(driver);
 			
 			
 		}
+			
+		
 
 	@Override
 	public Driver updateDriver(Driver driver, String key) throws DriverException{

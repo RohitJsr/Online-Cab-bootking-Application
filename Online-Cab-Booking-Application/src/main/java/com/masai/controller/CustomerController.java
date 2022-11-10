@@ -56,14 +56,14 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(DeleteCustomer,HttpStatus.OK);
 	}
 	
-	@GetMapping("/view")
+	@GetMapping("/viewAll")
 	public ResponseEntity<List<Customer>> findAllCustomer() throws CustomerException{
 		
 		List<Customer> customers = cService.viewCustomer();
 		
 		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
 	}
-	@GetMapping("/view All")
+	@GetMapping("/viewById")
 	public ResponseEntity<Customer> findCustomerById(@RequestParam Integer customerId) throws CustomerException{
 		Customer customer = cService.viewCustomer(customerId);
 		
