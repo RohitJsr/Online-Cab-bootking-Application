@@ -23,16 +23,16 @@ public class Driver extends User {
 	private String LicenseId;
 	private  float rating;
     
-	@OneToOne(cascade = CascadeType.ALL)
-	private Cab cab;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private Cab cab;
 
-	public Cab getCab() {
-		return cab;
-	}
-
-	public void setCab(Cab cab) {
-		this.cab = cab;
-	}
+//	public Cab getCab() {
+//		return cab;
+//	}
+//
+//	public void setCab(Cab cab) {
+//		this.cab = cab;
+//	}
 
 	public Integer getDriverId() {
 		return driverId;
