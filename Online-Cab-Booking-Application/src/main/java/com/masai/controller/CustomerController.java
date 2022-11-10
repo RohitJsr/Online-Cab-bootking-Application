@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +41,14 @@ public class CustomerController {
 				
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/customers/{id}")
+	public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Integer customerId) throws CustomerException{
+		
+		Customer DeleteCustomer = cService.deleteCustomer(customerId);
+		
+		return new ResponseEntity<Customer>(DeleteCustomer,HttpStatus.OK);
 	}
 	
 
