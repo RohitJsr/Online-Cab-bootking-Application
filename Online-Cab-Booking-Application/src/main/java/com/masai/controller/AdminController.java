@@ -5,11 +5,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +24,14 @@ import com.masai.service.AdminService;
 import com.masai.service.DriverService;
 
 @RestController
+@RequestMapping(value = "/admin")
 public class AdminController {
 	
 	@Autowired
 	private AdminService AService;
 	
 	
-	@PostMapping("/admin")
+	@PostMapping("/create")
 	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) throws AdminException {
 		
 		Admin savedAdmin = AService.createAdmin(admin);
@@ -37,7 +40,7 @@ public class AdminController {
 		return new ResponseEntity<Admin>(savedAdmin,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/admin")
+	@PutMapping("/update")
 	public  ResponseEntity<Admin> updateAdmin(@Valid @RequestBody Admin admin,@RequestParam(required = false) String key ) throws AdminException {
 		
 		
@@ -46,10 +49,10 @@ public class AdminController {
 		return new ResponseEntity<Admin>(updatedCustomer,HttpStatus.OK);
 		
 	}
-	@GetMapping("/admin/{id}")
-	public ResponseEntity<Admin> deleteAdmin(@PathVariable("id") Integer adminId) throws AdminException{
+	@DeleteMapping("/detete")
+	public ResponseEntity<Admin> deleteAdmin(@RequestBody Admin admin) throws AdminException{
 		
-		Admin DeleteAdmin = AService.deleteAdmin(adminId);
+		Admin DeleteAdmin = AService.deleteAdmin(admin);
 		
 		return new ResponseEntity<Admin>(DeleteAdmin,HttpStatus.OK);
 	}
