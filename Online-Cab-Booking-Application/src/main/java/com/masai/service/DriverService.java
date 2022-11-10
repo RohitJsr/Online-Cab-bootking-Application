@@ -10,6 +10,8 @@ public interface DriverService {
      public Driver createDriver(Driver Driver)throws DriverException;
 	
 	public  Driver updateDriver(Driver Driver,String key)throws DriverException;
+	
+	public Driver deleteDriver(int driverId) throws DriverException;
 
 
 

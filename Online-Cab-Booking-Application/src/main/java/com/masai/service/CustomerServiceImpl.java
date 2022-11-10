@@ -58,7 +58,21 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new CustomerException("Invalid Customer Details, please login first");
 	
 	}
+
+	@Override
+	public Customer deleteCustomer(Integer customerId) throws CustomerException {
+		// TODO Auto-generated method stub
+		Customer c = cDao.findByCustomerId(customerId);
 		
+		if(c != null) {
+			cDao.delete(c);
+			return c;
+		}else {
+			throw new CustomerException("Customer not found with Id : " +customerId);
+		}
+		
+		
+	}
 		
 		
 	}

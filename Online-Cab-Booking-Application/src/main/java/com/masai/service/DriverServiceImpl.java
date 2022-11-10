@@ -30,10 +30,10 @@ public class DriverServiceImpl implements DriverService{
 		
 		Driver existingdriver= dDao.findByMobileNumber(driver.getMobileNumber());
 		
-		Customer existingCustomer= dDao.customerByMobileNumber(driver.getMobileNumber());
 		
 		
-		if(existingdriver != null || existingCustomer != null) 
+		
+		if(existingdriver != null ) 
 			throw new DriverException("Driver Already Registered with Mobile number");
 			
 		
@@ -64,7 +64,28 @@ public class DriverServiceImpl implements DriverService{
 		
 	
 	}
+
+	@Override
+	public Driver deleteDriver(int driverId) throws DriverException {
+		// TODO Auto-generated method stub
+		
+		Driver driver = dDao.findByDriverId(driverId);
+		
+		if(driver != null) {
+			
+		 dDao.delete(driver);
+		 return driver;
+		 
+		}
+		else {
+			
+			throw new DriverException("Driver not found with id: "+driverId);
+			
+		}
+		
+		
 	
+	}
 
 	
 }
