@@ -92,13 +92,15 @@ public class AdminController {
 	}
 	
 
-//	@GetMapping("/tripbookings{customerId}/{fromDate}/{toDate}")
-//	public ResponseEntity<List<TripBooking>> getAllTripsbetwwenDays(@PathVariable("customerId")Integer customerId,@PathVariable("fromDate")LocalDateTime fromDate, @PathVariable("toDate")LocalDateTime toDate) throws TripBookingException{
-//		
-//		List<TripBooking> listOfBooking=AService.getAllTripDateWise(customerId, fromDate, toDate);
-//		return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
-//		
-//	}
+	// @GetMapping("/tripbookings{customerId}/{fromDate}/{toDate}")
+	// public ResponseEntity<List<TripBooking>> getAllTripsbetwwenDays(@PathVariable("customerId")Integer customerId,@PathVariable("fromDate")LocalDateTime fromDate, @PathVariable("toDate")LocalDateTime toDate) throws TripBookingException{
+		
+	// 	List<TripBooking> listOfBooking=AService.getAllTripDateWise(customerId, fromDate, toDate);
+	// 	return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
+		
+	// }
+
+	//Frist commit for day1
 	
 
 }
