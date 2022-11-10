@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.masai.exceptions.CustomerException;
+
 import com.masai.exceptions.DriverException;
 import com.masai.model.Cab;
 import com.masai.model.CabType;
@@ -32,23 +32,18 @@ public class DriverServiceImpl implements DriverService{
 	
 	public Driver createDriver(Driver driver)throws DriverException {
 		
-	Driver existingDriver= dDao.findByMobileNumber(driver.getMobileNumber());
+        
+        Cab cab = driver.getCab();
 		
-		if(existingDriver != null) 
-			throw new DriverException("Driver Already Registered with Mobile number");
-			
-		  Cab cab = driver.getCab();
-			
-			CabType cabtype = cab.getCabtype();
-			cab.setSittingCapacity(cabtype.sittingCapacity());
-			cab.setPerKmRate((float) cabtype.getPrice());
-			driver.setCab(cab);
-			return dDao.save(driver);
+		CabType cabtype = cab.getCabtype();
+		cab.setSittingCapacity(cabtype.sittingCapacity());
+		cab.setPerKmRate((float) cabtype.getPrice());
+		driver.setCab(cab);
+		return dDao.save(driver);
+		
 			
 			
 		}
-        
-		
 
 	@Override
 	public Driver updateDriver(Driver driver, String key) throws DriverException{
@@ -68,11 +63,11 @@ public class DriverServiceImpl implements DriverService{
 			throw new DriverException("Invalid Driver Details, please login first");
 	}
 	@Override
-	public Driver deleteDriver(int driverId) throws DriverException {
+	public Driver deleteDriver(Driver driver) throws DriverException {
 		// TODO Auto-generated method stub
 		
-		Driver driver = dDao.findById(driverId).orElseThrow(() -> new DriverException("Driver does not exist with id : "+ driverId));
-		dDao.delete(driver);
+		Driver driverDetails = dDao.findById(driver.getDriverId()).orElseThrow(() -> new DriverException("Driver does not exist with id : "+ driver.getDriverId()));
+		dDao.delete(driverDetails);
 		return driver;
 	
 	}

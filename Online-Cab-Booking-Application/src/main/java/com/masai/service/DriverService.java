@@ -13,7 +13,7 @@ public interface DriverService {
 	
 	public  Driver updateDriver(Driver Driver,String key)throws DriverException;
 	
-	public Driver deleteDriver(int driverId) throws DriverException;
+	public Driver deleteDriver(Driver driver) throws DriverException;
 	
 	public List<Driver> viewDriver()throws DriverException;
 	

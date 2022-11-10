@@ -11,7 +11,7 @@ public interface AdminService {
 		
 	 public  Admin updateAdmin(Admin Admin,String key)throws AdminException;
 	 
-	 public Admin deleteAdmin(Integer adminId) throws AdminException;
+	 public Admin deleteAdmin(Admin admin) throws AdminException;
 
 	
 }

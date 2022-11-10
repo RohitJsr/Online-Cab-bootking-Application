@@ -62,15 +62,15 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer deleteCustomer(Integer customerId) throws CustomerException {
+	public Customer deleteCustomer(Customer customer ) throws CustomerException {
 		// TODO Auto-generated method stub
-		Customer c = cDao.findByCustomerId(customerId);
+		Customer c = cDao.findByCustomerId(customer.getCustomerId());
 		
 		if(c != null) {
 			cDao.delete(c);
 			return c;
 		}else {
-			throw new CustomerException("Customer not found with Id : " +customerId);
+			throw new CustomerException("Customer not found with Id : " +customer.getCustomerId());
 		}
 		
 		
