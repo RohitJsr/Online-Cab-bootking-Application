@@ -65,7 +65,7 @@ public class DriverServiceImpl implements DriverService{
 	}
 	@Override
 	public Driver deleteDriver(Driver driver) throws DriverException {
-		// TODO Auto-generated method stub
+		
 		
 		Driver driverDetails = dDao.findById(driver.getDriverId()).orElseThrow(() -> new DriverException("Driver does not exist with id : "+ driver.getDriverId()));
 		dDao.delete(driverDetails);
@@ -75,7 +75,7 @@ public class DriverServiceImpl implements DriverService{
 
 	@Override
 	public List<Driver> viewDriver() throws DriverException {
-		// TODO Auto-generated method stub
+		
 		
 		List<Driver> list = dDao.findAll();
 		

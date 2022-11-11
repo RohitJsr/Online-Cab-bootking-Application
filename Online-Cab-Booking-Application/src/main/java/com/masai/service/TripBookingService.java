@@ -13,7 +13,7 @@ public interface TripBookingService {
 	public TripBooking deleteTripBooking(int tripBookingld) throws TripBookingException;
 	
 //	public List<TripBooking> viewAllTripsCustomer(int customerld) throws TripBookingException;
-//	
+
 //	public TripBooking calculateBill(int customerld) throws TripBookingException;
 
 }

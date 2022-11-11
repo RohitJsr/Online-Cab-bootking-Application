@@ -18,7 +18,7 @@ public class TripBookingServiceImpl implements TripBookingService{
 	
 	@Override
 	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripBookingException {
-		// TODO Auto-generated method stub
+		
 		TripBooking booking=tdao.save(tripBooking);
 		
 		if(booking ==null) {
@@ -30,7 +30,7 @@ public class TripBookingServiceImpl implements TripBookingService{
 
 	@Override
 	public TripBooking updateTripBooking(TripBooking tripBooking) throws TripBookingException {
-		// TODO Auto-generated method stub
+		
 		
 		//tdao.findById(tripBooking.getTripBookingId()).orElseThrow(() -> new TripBookingException("TripBooking with id : "+ tripBooking.getTripBookingId() + "does not exist"));
 		return tdao.save(tripBooking);	
@@ -39,7 +39,7 @@ public class TripBookingServiceImpl implements TripBookingService{
 
 	@Override
 	public TripBooking deleteTripBooking(int tripBookingld) throws TripBookingException {
-		// TODO Auto-generated method stub
+		
 		TripBooking trip = tdao.findById(tripBookingld).orElseThrow(() -> new TripBookingException("Trip with id : " + tripBookingld + "does not exist"));
 		
 		tdao.deleteById(tripBookingld);		
