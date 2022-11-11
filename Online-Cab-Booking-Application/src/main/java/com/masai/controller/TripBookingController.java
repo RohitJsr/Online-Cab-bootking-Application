@@ -48,21 +48,21 @@ public class TripBookingController {
 	
 	}
 	
-	@GetMapping("/tripbooking/{customerid}")
-	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId) throws TripBookingException{
-		
-		List<TripBooking> savedBooking=tripBookingService.viewAllTripsCustomer(customerId);		
-		return new ResponseEntity<List<TripBooking>>(savedBooking,HttpStatus.OK);	
-	
-	}
-	
-
-	@GetMapping("/tripbookingBill/{customerid}")
-	public ResponseEntity<TripBooking> calculateBill(@PathVariable("customerid") Integer customerId) throws TripBookingException{
-		
-		TripBooking savedBooking=tripBookingService.calculateBill(customerId);		
-		return new ResponseEntity<TripBooking>(savedBooking,HttpStatus.OK);	
-	
-	}
+//	@GetMapping("/tripbooking/{customerid}")
+//	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId) throws TripBookingException{
+//		
+//		List<TripBooking> savedBooking=tripBookingService.viewAllTripsCustomer(customerId);		
+//		return new ResponseEntity<List<TripBooking>>(savedBooking,HttpStatus.OK);	
+//	
+//	}
+//	
+//
+//	@GetMapping("/tripbookingBill/{customerid}")
+//	public ResponseEntity<TripBooking> calculateBill(@PathVariable("customerid") Integer customerId) throws TripBookingException{
+//		
+//		TripBooking savedBooking=tripBookingService.calculateBill(customerId);		
+//		return new ResponseEntity<TripBooking>(savedBooking,HttpStatus.OK);	
+//	
+//	}
 
 }
