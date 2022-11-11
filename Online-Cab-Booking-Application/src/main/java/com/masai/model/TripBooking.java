@@ -10,35 +10,38 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripBooking {
-	
+
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer tripBookingId;
 	
-	@OneToOne
-	private Customer customerId;
+	@ManyToOne
+	private Customer customer;
 	
 	@ManyToOne
 	private Driver driver;
-	private String frontLocation;
+	private String fromLocation;
 	private String toLocation;
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
 	private boolean status;
 	private float distanceInKm;
 	private float bill;
+
+	
 	
 	
 	
