@@ -46,23 +46,23 @@ public class TripBookingServiceImpl implements TripBookingService{
 		return trip;
 	}
 
-	@Override
-	public List<TripBooking> viewAllTripsCustomer(int customerld) throws TripBookingException {
-		// TODO Auto-generated method stub
-		
-		List<TripBooking> list=tdao.getAllTripsByCustomerId(customerld);
-		
-		if(list.size()==0) throw new TripBookingException("No trip for this customer having id : "+ customerld);
-		
-		return list;
-	}
-
-	@Override
-	public TripBooking calculateBill(int customerld) throws TripBookingException {
-		// TODO Auto-generated method stub
-		TripBooking trip = tdao.getCurrentTripByCustomerId(customerld);
-	
-		return tdao.save(trip);
-	}
+//	@Override
+//	public List<TripBooking> viewAllTripsCustomer(int customerld) throws TripBookingException {
+//		// TODO Auto-generated method stub
+//		
+//		List<TripBooking> list=tdao.getAllTripsByCustomerId(customerld);
+//		
+//		if(list.size()==0) throw new TripBookingException("No trip for this customer having id : "+ customerld);
+//		
+//		return list;
+//	}
+//
+//	@Override
+//	public TripBooking calculateBill(int customerld) throws TripBookingException {
+//		// TODO Auto-generated method stub
+//		TripBooking trip = tdao.getCurrentTripByCustomerId(customerld);
+//	
+//		return tdao.save(trip);
+//	}
 
 }

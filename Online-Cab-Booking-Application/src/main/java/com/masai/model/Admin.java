@@ -20,7 +20,6 @@ public class Admin extends User {
     @Id
 	private Integer adminId;
 	
-	@Embedded
-	private User user;
+	
 	
 }

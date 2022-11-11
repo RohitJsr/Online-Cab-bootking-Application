@@ -57,40 +57,40 @@ public class AdminController {
 	}
 	
 
-	@GetMapping("/tripbookings/{customerId}")
-	public ResponseEntity<List<TripBooking>> getAllTrips(@PathVariable("customerId") Integer customerId) throws TripBookingException{
-		
-		List<TripBooking> listOfBooking=AService.getAllTrips(customerId);
-		return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
-		
-	}
-	
-	@GetMapping("/tripbookings")
-	public ResponseEntity<List<Driver>> getAllTripsDriverWise() throws DriverException{
-		
-		List<Driver> listOfBooking=AService.getTripsDriver();
-		return new ResponseEntity<List<Driver>>(listOfBooking,HttpStatus.OK);
-		
-	}
-	
-	
-	@GetMapping("/tripbookingsCustomerWise")
-	public ResponseEntity<List<Customer>> getAllTripsCustomerWise() throws CustomerException{
-		
-		List<Customer> listOfBooking=AService.getTripsCustomerwise();
-		return new ResponseEntity<List<Customer>>(listOfBooking,HttpStatus.OK);
-		
-	}
-
-	
-	@GetMapping("/tripbookingsDateWise")
-	public ResponseEntity<List<TripBooking>> getAllTripDateWise() throws TripBookingException{
-		
-		List<TripBooking> listOfBooking=AService.getTripsDatewise();
-		return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
-		
-	}
-	
+//	@GetMapping("/tripbookings/{customerId}")
+//	public ResponseEntity<List<TripBooking>> getAllTrips(@PathVariable("customerId") Integer customerId) throws TripBookingException{
+//		
+//		List<TripBooking> listOfBooking=AService.getAllTrips(customerId);
+//		return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
+//		
+//	}
+//	
+//	@GetMapping("/tripbookings")
+//	public ResponseEntity<List<Driver>> getAllTripsDriverWise() throws DriverException{
+//		
+//		List<Driver> listOfBooking=AService.getTripsDriver();
+//		return new ResponseEntity<List<Driver>>(listOfBooking,HttpStatus.OK);
+//		
+//	}
+//	
+//	
+//	@GetMapping("/tripbookingsCustomerWise")
+//	public ResponseEntity<List<Customer>> getAllTripsCustomerWise() throws CustomerException{
+//		
+//		List<Customer> listOfBooking=AService.getTripsCustomerwise();
+//		return new ResponseEntity<List<Customer>>(listOfBooking,HttpStatus.OK);
+//		
+//	}
+//
+//	
+//	@GetMapping("/tripbookingsDateWise")
+//	public ResponseEntity<List<TripBooking>> getAllTripDateWise() throws TripBookingException{
+//		
+//		List<TripBooking> listOfBooking=AService.getTripsDatewise();
+//		return new ResponseEntity<List<TripBooking>>(listOfBooking,HttpStatus.OK);
+//		
+//	}
+//	
 
 	// @GetMapping("/tripbookings{customerId}/{fromDate}/{toDate}")
 	// public ResponseEntity<List<TripBooking>> getAllTripsbetwwenDays(@PathVariable("customerId")Integer customerId,@PathVariable("fromDate")LocalDateTime fromDate, @PathVariable("toDate")LocalDateTime toDate) throws TripBookingException{

@@ -64,6 +64,12 @@ public class GlobalExceptionHandler {
 		
 	}
 	
+	@ExceptionHandler(CabException.class)
+	ResponseEntity<MyErrorDetails>cabExceptionHandler(CabException ce,WebRequest wr){
+		MyErrorDetails error=new MyErrorDetails(LocalDateTime.now(),ce.getMessage(),wr.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(error,HttpStatus.NOT_FOUND);
+	}
+	
 	
 	
 }
