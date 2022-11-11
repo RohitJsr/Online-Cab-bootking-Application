@@ -12,6 +12,8 @@ import com.masai.model.CabType;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
 import com.masai.model.Driver;
+import com.masai.model.DriverDTO;
+import com.masai.repository.CabDao;
 import com.masai.repository.CustomerDao;
 import com.masai.repository.DriverDao;
 import com.masai.repository.SessionDao;
@@ -24,22 +26,42 @@ public class DriverServiceImpl implements DriverService{
 	private DriverDao dDao;
 	
 	@Autowired
-	private SessionDao sDao;
+	private CabDao cabDao;
 	
+	
+	@Autowired
+	private SessionDao sDao;
 
 	
 	@Override
-	public Driver createDriver(Driver driver)throws DriverException {
+	public Driver createDriver(DriverDTO cabdto)throws DriverException {
 		
-      
-		Driver existingdriver= dDao.findByMobileNumber(driver.getMobileNumber());
+		Cab cab = new Cab();
+		cab.setCabtype(cabdto.getCarType());
+		cab.setNumberPlate(cabdto.getNumberPlate());
+		cab.setRatePerKms(cabdto.getRatePerKms());
 		
-	
+		Driver driver = new Driver();
+		driver.setAddress(cabdto.getAddress());
+		driver.setUsername(cabdto.getUsername());
+		driver.setPassword(cabdto.getPassword());
+		driver.setMobileNumber(cabdto.getMobileNumber());
+		driver.setEmail(cabdto.getEmail());
+		driver.setCab(cab);
+		driver.setLicenseNumber(cabdto.getLicenseNumber());
+		
+		cab.setDriver(driver);
+		
+		Driver existingdriver= dDao.findByMobileNumber(cabdto.getMobileNumber());
+
 		if(existingdriver != null ) 
 			throw new DriverException("Driver Already Registered with Mobile number");
-			
 		
-			return dDao.save(driver);
+		Cab cb = cabDao.findByNumberPlate(cab.getNumberPlate());
+		if(cb != null) throw new DriverException("Number Plate already registered");
+			
+	    dDao.save(driver);
+	    return driver;
 			
 			
 		}
@@ -73,26 +95,11 @@ public class DriverServiceImpl implements DriverService{
 	
 	}
 
-	@Override
-	public List<Driver> viewDriver() throws DriverException {
-		// TODO Auto-generated method stub
-		
-		List<Driver> list = dDao.findAll();
-		
-		if(list == null)
-			throw new DriverException("No Driver found");
-		
-		return list;
-		
-		
-	}
 
-	@Override
-	public Driver viewDriver(int driverId) throws DriverException {
-		// TODO Auto-generated method stub
+
+
+
 	
-		return dDao.findById(driverId).orElseThrow(() -> new DriverException("Driver doesn't exist with id :"+ driverId));
-	}
 	
 	
 }

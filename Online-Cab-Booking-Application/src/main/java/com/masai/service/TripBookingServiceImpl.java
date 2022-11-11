@@ -1,12 +1,19 @@
 package com.masai.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.TripBookingException;
+import com.masai.model.BillDetails;
+import com.masai.model.Customer;
+import com.masai.model.Driver;
 import com.masai.model.TripBooking;
+import com.masai.model.TripBookingDTO;
+import com.masai.repository.CustomerDao;
+import com.masai.repository.DriverDao;
 import com.masai.repository.TripBookingDao;
 
 
@@ -16,53 +23,143 @@ public class TripBookingServiceImpl implements TripBookingService{
 	@Autowired
 	private TripBookingDao tdao;
 	
+	@Autowired
+	private DriverDao ddao;
+	
+	@Autowired
+	private CustomerDao cdao;
+	
 	@Override
-	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripBookingException {
+	public TripBooking insertTripBooking(TripBookingDTO tripBooking) throws TripBookingException {
 		// TODO Auto-generated method stub
-		TripBooking booking=tdao.save(tripBooking);
 		
-		if(booking ==null) {
-			throw new TripBookingException("Please Enter proper details to start the trip");
+		Optional<Customer> customer = cdao.findById(tripBooking.getCustomerId());
+		
+		if(customer.isPresent()) {
+			Customer  c = customer.get();
+			TripBooking tripB = new TripBooking();
+			
+	
+			tripB.setFromLocation(tripBooking.getFromLocation());
+			tripB.setToLocation(tripBooking.getToLocation());
+			tripB.setFromDateTime(tripBooking.getFromTime());
+			tripB.setToDateTime(tripBooking.getToTime());
+	         int min = 10;
+	         int max = 100;
+	         float distance = (float)Math.floor(Math.random()*(max-min+1)+min);
+			tripB.setDistanceInKm(distance);
+			
+      	tripB.setCustomer(c);
+      	List<Driver> driverlist = ddao.findAll();
+      	
+      	Driver driver = null;
+      	for(int i = 0;i<driverlist.size();i++) {
+      		if(driverlist.get(i).getAvailablity()== true) {
+      		   driver = driverlist.get(i);
+      		   break;
+      		}
+      	}
+      	
+      	if(driver == null) throw new TripBookingException("No Driver Available at the moment");
+      	
+      	tripB.setDriver(driver);
+      	driver.getTripBookingList().add(tripB);
+      	driver.setAvailablity(false);
+      	
+ 
+      	c.getTripBooking().add(tripB);
+      	
+			tdao.save(tripB);
+			
+			
+			return tripB;
+			
 		}else {
-			return booking;
+			throw new TripBookingException("Customer not found with id "+ tripBooking.getCustomerId());
 		}
 	}
 
+
 	@Override
-	public TripBooking updateTripBooking(TripBooking tripBooking) throws TripBookingException {
-		// TODO Auto-generated method stub
+	public String deleteTripBooking(TripBookingDTO tripBooking) throws TripBookingException {
 		
-		//tdao.findById(tripBooking.getTripBookingId()).orElseThrow(() -> new TripBookingException("TripBooking with id : "+ tripBooking.getTripBookingId() + "does not exist"));
-		return tdao.save(tripBooking);	
+	  Optional<TripBooking> trip = tdao.findById(tripBooking.getTripId());
+	  if(trip.isPresent()) {
+		  tdao.delete(trip.get());
+	  }
+	  throw new TripBookingException("No trip found");
+//		Optional<Customer> customer = cdao.findById(tripBooking.getCustomerId());
+//		if(customer.isPresent()) {
+//			Customer cus = customer.get();
+//			List<TripBooking> tripB = cus.getTripBooking();
+//			
+//			if(tripB.size()>0) {
+//				if(tripB.get(tripB.size()-1).isStatus()== false) {
+//					Driver driver = tripB.get(tripB.size()-1).getDriver();
+//					driver.setAvailablity(true);
+//					ddao.save(driver);
+//					tripB.remove(tripB.size()-1);
+//					cdao.save(cus);
+//					
+//					return "Trip cancelled Successfully";
+//				}
+//			}
+//			return "No Trip found";
+// 			
+//		}else {
+//			throw new TripBookingException("Customer not found with id :"+ tripBooking.getCustomerId());
+//		}
 		
 	}
 
 	@Override
-	public TripBooking deleteTripBooking(int tripBookingld) throws TripBookingException {
+	public List<TripBooking> viewAllTripsCustomer(int customerId) throws TripBookingException {
 		// TODO Auto-generated method stub
-		TripBooking trip = tdao.findById(tripBookingld).orElseThrow(() -> new TripBookingException("Trip with id : " + tripBookingld + "does not exist"));
+		Optional<Customer> customer = cdao.findById(customerId);
 		
-		tdao.deleteById(tripBookingld);		
-		return trip;
+		if(customer.isPresent()) {
+			Customer c = customer.get();
+			List<TripBooking> tripBooking = c.getTripBooking();
+			return tripBooking;
+		}
+		
+		
+		
+		 throw new TripBookingException("No trip for this customer having id : "+ customerId);
+		
+	
 	}
 
-//	@Override
-//	public List<TripBooking> viewAllTripsCustomer(int customerld) throws TripBookingException {
-//		// TODO Auto-generated method stub
-//		
-//		List<TripBooking> list=tdao.getAllTripsByCustomerId(customerld);
-//		
-//		if(list.size()==0) throw new TripBookingException("No trip for this customer having id : "+ customerld);
-//		
-//		return list;
-//	}
-//
-//	@Override
-//	public TripBooking calculateBill(int customerld) throws TripBookingException {
-//		// TODO Auto-generated method stub
-//		TripBooking trip = tdao.getCurrentTripByCustomerId(customerld);
-//	
-//		return tdao.save(trip);
-//	}
+	@Override
+	public TripBooking calculateBill(TripBookingDTO  tripBooking) throws TripBookingException {
+		Optional<TripBooking> customer = tdao.findById(tripBooking.getCustomerId());
+		
+		if(customer.isPresent()) {
+			
+			Optional<TripBooking> tb = tdao.findById(tripBooking.getTripId());
+			
+			if(tb.isPresent()) {
+				
+				BillDetails  bill = new BillDetails();
+			//	bill.setDistance(tripBooking.getDistance());
+				bill.setRatePerKms(tb.get().getDistanceInKm());
+				
+				
+			}else {
+				throw new TripBookingException("Trip with given id does not exist");
+			}
+			
+			
+			
+		}
+		
+		
+		return null;
+		// TODO Auto-generated method stub
+		
+	
+		
+	}
 
+	
 }

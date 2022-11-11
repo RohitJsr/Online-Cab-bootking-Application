@@ -1,9 +1,11 @@
 package com.masai.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -19,24 +21,23 @@ import lombok.Setter;
 public class Cab {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer id;
-	private double perKmRate;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer cabId;
 	
 	@NotNull
-	private CabType cabtype;
+	private String numberPlate;
 	
-	private Integer sittingCapacity;
-	
-	private Boolean available = true;
-	
-	@NotNull
-	private String registrationNumber;
 
 	
+	@NotNull
+	private String cabtype;
 	
+	private double ratePerKms;
 	
-	
+
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Driver driver;
 
 	
 }

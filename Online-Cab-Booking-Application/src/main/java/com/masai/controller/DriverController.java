@@ -19,6 +19,7 @@ import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.DriverException;
 import com.masai.model.Customer;
 import com.masai.model.Driver;
+import com.masai.model.DriverDTO;
 import com.masai.service.DriverService;
 
 @RestController
@@ -30,7 +31,7 @@ public class DriverController {
 	
 	
 	@PostMapping("/create")
-	public ResponseEntity<Driver> saveCustomer(@Valid @RequestBody Driver driver) throws DriverException {
+	public ResponseEntity<Driver> saveCustomer(@Valid @RequestBody DriverDTO driver) throws DriverException {
 		
 		Driver savedDriver= dService.createDriver(driver);
 		
