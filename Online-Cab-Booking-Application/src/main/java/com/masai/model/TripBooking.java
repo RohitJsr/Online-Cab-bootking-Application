@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TripBooking {
 
-
+    
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer tripBookingId;
@@ -38,6 +38,12 @@ public class TripBooking {
 	private LocalDateTime fromDateTime;
 	private LocalDateTime toDateTime;
 	private boolean status;
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	private float distanceInKm;
 	private float bill;
 

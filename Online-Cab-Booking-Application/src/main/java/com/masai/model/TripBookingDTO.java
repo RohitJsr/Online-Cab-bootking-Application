@@ -25,6 +25,8 @@ public class TripBookingDTO {
 	
 	private LocalDateTime toTime;
 	
+	private Integer driverId;
+	
 	
 	
 

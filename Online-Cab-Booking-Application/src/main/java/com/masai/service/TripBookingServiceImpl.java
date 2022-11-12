@@ -83,32 +83,32 @@ public class TripBookingServiceImpl implements TripBookingService{
 	@Override
 	public String deleteTripBooking(TripBookingDTO tripBooking) throws TripBookingException {
 		
-	  Optional<TripBooking> trip = tdao.findById(tripBooking.getTripId());
-	  if(trip.isPresent()) {
-		  tdao.delete(trip.get());
-	  }
-	  throw new TripBookingException("No trip found");
-//		Optional<Customer> customer = cdao.findById(tripBooking.getCustomerId());
-//		if(customer.isPresent()) {
-//			Customer cus = customer.get();
-//			List<TripBooking> tripB = cus.getTripBooking();
-//			
-//			if(tripB.size()>0) {
-//				if(tripB.get(tripB.size()-1).isStatus()== false) {
-//					Driver driver = tripB.get(tripB.size()-1).getDriver();
-//					driver.setAvailablity(true);
-//					ddao.save(driver);
-//					tripB.remove(tripB.size()-1);
-//					cdao.save(cus);
-//					
-//					return "Trip cancelled Successfully";
-//				}
-//			}
-//			return "No Trip found";
-// 			
-//		}else {
-//			throw new TripBookingException("Customer not found with id :"+ tripBooking.getCustomerId());
-//		}
+//	  Optional<TripBooking> trip = tdao.findById(tripBooking.getTripId());
+//	  if(trip.isPresent()) {
+//		  tdao.delete(trip.get());
+//	  }
+//	  throw new TripBookingException("No trip found");
+		Optional<Customer> customer = cdao.findById(tripBooking.getCustomerId());
+		if(customer.isPresent()) {
+			Customer cus = customer.get();
+			List<TripBooking> tripB = cus.getTripBooking();
+			
+			if(tripB.size()>0) {
+				if(tripB.get(tripB.size()-1).isStatus()== false) {
+					Driver driver = tripB.get(tripB.size()-1).getDriver();
+					driver.setAvailablity(true);
+					ddao.save(driver);
+					tripB.remove(tripB.size()-1);
+					cdao.save(cus);
+					
+					return "Trip cancelled Successfully";
+				}
+			}
+			return "No Trip found";
+ 			
+		}else {
+			throw new TripBookingException("Customer not found with id :"+ tripBooking.getCustomerId());
+		}
 		
 	}
 
@@ -131,31 +131,36 @@ public class TripBookingServiceImpl implements TripBookingService{
 	}
 
 	@Override
-	public TripBooking calculateBill(TripBookingDTO  tripBooking) throws TripBookingException {
-		Optional<TripBooking> customer = tdao.findById(tripBooking.getCustomerId());
-		
-		if(customer.isPresent()) {
+	public String calculateBill(Integer driverId) throws TripBookingException {
+	Optional<Driver> driver  = ddao.findById(driverId);
+		if(driver.isPresent()) {
+			Driver cabDriver = driver.get();
+			List<TripBooking> customerTripList = cabDriver.getTripBookingList();
 			
-			Optional<TripBooking> tb = tdao.findById(tripBooking.getTripId());
-			
-			if(tb.isPresent()) {
-				
-				BillDetails  bill = new BillDetails();
-			//	bill.setDistance(tripBooking.getDistance());
-				bill.setRatePerKms(tb.get().getDistanceInKm());
-				
-				
-			}else {
-				throw new TripBookingException("Trip with given id does not exist");
-			}
+			if(customerTripList.size() == 0) throw new TripBookingException("No Trip found");
 			
 			
+			TripBooking lastTrip = customerTripList.get(customerTripList.size()-1);
+			if(lastTrip.isStatus() == true) throw new TripBookingException("All Trips Completed");
 			
+			float ratePerkms = (float) cabDriver.getCab().getRatePerKms();
+			float distance = lastTrip.getDistanceInKm();
+			
+			lastTrip.setBill(distance*ratePerkms);
+			cabDriver.setAvailablity(true);
+			lastTrip.setStatus(true);
+			
+			ddao.save(cabDriver);
+			
+			return "Bill is " + lastTrip.getBill();
+			
+        
+			
+		}else {
+			throw new TripBookingException("Driver does not exist with id"+ driverId);
 		}
 		
 		
-		return null;
-		// TODO Auto-generated method stub
 		
 	
 		
