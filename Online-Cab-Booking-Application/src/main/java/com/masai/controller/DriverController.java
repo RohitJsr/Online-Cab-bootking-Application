@@ -28,44 +28,44 @@ import com.masai.service.TripBookingService;
 @RestController
 @RequestMapping(value = "/driver")
 public class DriverController {
-
+	
 	@Autowired
 	private DriverService dService;
-
+	
 	@Autowired
 	private TripBookingService tripBookingService;
-
+	
+	
 	@PostMapping("/create")
 	public ResponseEntity<Driver> saveCustomer(@Valid @RequestBody DriverDTO driver) throws DriverException {
-
-		Driver savedDriver = dService.createDriver(driver);
-
-		return new ResponseEntity<Driver>(savedDriver, HttpStatus.CREATED);
+		
+		Driver savedDriver= dService.createDriver(driver);
+		
+		
+		return new ResponseEntity<Driver>(savedDriver,HttpStatus.CREATED);
 	}
-
+	
 	@PutMapping("/update")
-	public ResponseEntity<Driver> updateCustomer(@Valid @RequestBody DriverDTO driver,
-			@RequestParam(required = false) String key) throws DriverException {
-
-		Driver updatedCustomer = dService.updateDriver(driver, key);
-
-		return new ResponseEntity<Driver>(updatedCustomer, HttpStatus.OK);
-
+	public  ResponseEntity<Driver> updateCustomer(@Valid @RequestBody DriverDTO driver,@RequestParam(required = false) String key ) throws DriverException {
+		
+		
+		Driver updatedCustomer= dService.updateDriver(driver, key);
+				
+		return new ResponseEntity<Driver>(updatedCustomer,HttpStatus.OK);
+		
 	}
-
 	@DeleteMapping("/delete")
-	public ResponseEntity<String> deleteCustomer(DriverDTO driver) throws DriverException {
-
+	public ResponseEntity<String> deleteCustomer(DriverDTO driver) throws DriverException{
+		
 		String DeleteDriver = dService.deleteDriver(driver);
-
-		return new ResponseEntity<String>(DeleteDriver, HttpStatus.OK);
+		
+		return new ResponseEntity<String>(DeleteDriver,HttpStatus.OK);
 	}
-
+	
 	@GetMapping("/tripCompleted{driverId}")
-	public ResponseEntity<String> tripCompletionHandler(@PathVariable("driverId") Integer driverId)
-			throws TripBookingException {
+	public ResponseEntity<String> tripCompletionHandler(@PathVariable("driverId") Integer driverId) throws TripBookingException{
 		String mess = tripBookingService.calculateBill(driverId);
-		return new ResponseEntity<String>(mess, HttpStatus.OK);
+		return  new ResponseEntity<String>(mess,HttpStatus.OK);
 	}
 
 }

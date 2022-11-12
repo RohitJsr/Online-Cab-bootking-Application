@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.masai.model.TripBooking;
 
-public interface TripBookingDao extends JpaRepository<TripBooking, Integer> {
-
+public interface TripBookingDao extends JpaRepository<TripBooking, Integer>{
+	
 }

@@ -1,6 +1,8 @@
 package com.masai.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.beans.factory.annotation.Autowired; 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +21,25 @@ public class LoginCustomerController {
 
 	@Autowired
 	private LoginService customerLogin;
-
+	
 	@PostMapping("/loginCustomer")
 	public ResponseEntity<String> logIn(@RequestBody LoginDTO dto) throws LoginException {
-
+		
 		String result = customerLogin.logIntoAccount(dto);
+		
 
-		return new ResponseEntity<String>(result, HttpStatus.OK);
-
+		
+		return new ResponseEntity<String>(result,HttpStatus.OK );
+		
+		
 	}
-
+	
 	@GetMapping("/logoutCustomer")
 	public String logout(@RequestParam(required = false) String key) throws LoginException {
 		return customerLogin.logOutFromAccount(key);
-
+		
 	}
-
+	
+	
+	
 }

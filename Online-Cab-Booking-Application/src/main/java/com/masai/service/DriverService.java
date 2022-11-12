@@ -9,11 +9,14 @@ import com.masai.model.Driver;
 import com.masai.model.DriverDTO;
 
 public interface DriverService {
-
-	public Driver createDriver(DriverDTO Driver) throws DriverException;
-
-	public Driver updateDriver(DriverDTO Driver, String key) throws DriverException;
-
+	
+     public Driver createDriver(DriverDTO Driver)throws DriverException;
+	
+	public  Driver updateDriver(DriverDTO Driver,String key)throws DriverException;
+	
 	public String deleteDriver(DriverDTO driver) throws DriverException;
+	
+
+
 
 }

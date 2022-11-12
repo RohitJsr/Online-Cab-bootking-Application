@@ -10,12 +10,13 @@ import com.masai.model.TripBooking;
 
 public interface AdminService {
 
-	public Admin createAdmin(Admin Admin) throws AdminException;
+	 public Admin createAdmin(Admin Admin)throws AdminException;
+		
+	 public  Admin updateAdmin(Admin Admin,String key)throws AdminException;
+	 
+	 public String deleteAdmin(Integer adminId,String key) throws AdminException;
+	 
+	 public List<TripBooking> getAllTripsByCab(Integer cabId , Integer admin,String key) throws AdminException;
 
-	public Admin updateAdmin(Admin Admin, String key) throws AdminException;
-
-	public Admin deleteAdmin(Admin admin) throws AdminException;
-
-	public List<TripBooking> getAllTripsByCab(Integer cabId) throws AdminException;
-
+	
 }

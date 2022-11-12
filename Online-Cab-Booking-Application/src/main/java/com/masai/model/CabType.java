@@ -3,15 +3,15 @@ package com.masai.model;
 public enum CabType {
 
 	ECONOMY, COMPACT, COMPACT_PREMIUM, MUV, MUV_PREMIUM, LUXURY, SUPER_LUXURY;
-
+	
 	double price;
 
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
+	
 	public int sittingCapacity() {
-
+		
 		switch (this) {
 		case ECONOMY:
 			return 4;
@@ -29,27 +29,28 @@ public enum CabType {
 			return 4;
 		}
 	}
-
+	
+	
 	public double getPrice() {
-
+		
 		price = 2;
-
+		
 		switch (this) {
 		case ECONOMY:
 			return price *= 1.25;
 		case COMPACT:
-			return price *= 1.5;
+			return price *=1.5;
 		case COMPACT_PREMIUM:
-			return price *= 1.75;
+			return price *=1.75;
 		case MUV:
-			return price *= 2;
+			return price *=2;
 		case LUXURY:
-			return price *= 2.5;
+			return price *=2.5;
 		case SUPER_LUXURY:
-			return price *= 3;
+			return price *=3;
 		default:
 			return price;
 		}
-
+		
 	}
 }

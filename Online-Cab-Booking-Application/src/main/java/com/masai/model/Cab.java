@@ -19,20 +19,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Cab {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cabId;
-
+	
 	@NotNull
 	private String numberPlate;
+	
 
+	
 	@NotNull
 	private String cabtype;
-
+	
 	private double ratePerKms;
+	
+
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Driver driver;
 
+	
 }

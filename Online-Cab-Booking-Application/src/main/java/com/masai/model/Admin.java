@@ -15,9 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Admin extends User {
-
+	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Id
+    @Id
 	private Integer adminId;
-
+	
+	
+	
 }
