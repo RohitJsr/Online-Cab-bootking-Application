@@ -189,5 +189,17 @@ public class TripBookingServiceImpl implements TripBookingService{
 		
 	}
 
+
+	@Override
+	public List<TripBooking> getAllTrips() throws TripBookingException {
+		// TODO Auto-generated method stub
+		
+		 List<TripBooking> alltrip = tdao.findAll();
+		 if(alltrip.size() >0) {
+			 return alltrip;
+		 }
+		throw new TripBookingException("No trip found");
+	}
+
 	
 }
