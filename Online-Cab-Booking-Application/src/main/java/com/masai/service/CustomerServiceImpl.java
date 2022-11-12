@@ -79,18 +79,18 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		if(c.isPresent()) {
 			Customer cust = c.get();
-		//List<TripBooking> tripDetailsList = cust.getTripBooking();
-		//if(tripDetailsList.size() > 0) {
-		//	if(tripDetailsList.get(tripDetailsList.size() -1).isStatus() == false) {
-		//		  Driver driver = tripDetailsList.get(tripDetailsList.size()-1).getDriver();
-			//	  driver.setAvailablity(true);
-			//	  ddao.save(driver);
-			//	  tripDetailsList.remove(tripDetailsList.size()-1);
-			//	  cDao.save(cust);
+		List<TripBooking> tripDetailsList = cust.getTripBooking();
+		if(tripDetailsList.size() > 0) {
+			if(tripDetailsList.get(tripDetailsList.size() -1).isStatus() == false) {
+				  Driver driver = tripDetailsList.get(tripDetailsList.size()-1).getDriver();
+				  driver.setAvailablity(true);
+				  ddao.save(driver);
+				  tripDetailsList.remove(tripDetailsList.size()-1);
+				  cDao.save(cust);
 				  
 				  
-			//}
-	//	}
+			}
+		}
 		
 		cDao.delete(cust);
 		return "Customer with id : "+customer.getCustomerId()+" deleted"; 

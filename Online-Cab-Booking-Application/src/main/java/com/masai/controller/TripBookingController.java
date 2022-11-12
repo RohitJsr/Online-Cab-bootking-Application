@@ -50,6 +50,14 @@ public class TripBookingController {
 	
 	}
 	
+	@GetMapping("/Alltrips")
+	public ResponseEntity<List<TripBooking>>  allTrips() throws TripBookingException{
+		
+		List<TripBooking> tripBooking = tripBookingService.getAllTrips();
+		
+		return new ResponseEntity<List<TripBooking>>(tripBooking,HttpStatus.OK);
+	}
+	
 	
 
 
