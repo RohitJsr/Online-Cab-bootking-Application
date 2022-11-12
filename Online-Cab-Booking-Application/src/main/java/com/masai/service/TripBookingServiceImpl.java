@@ -81,14 +81,14 @@ public class TripBookingServiceImpl implements TripBookingService{
 
 
 	@Override
-	public String deleteTripBooking(TripBookingDTO tripBooking) throws TripBookingException {
+	public String deleteTripBooking(Integer customerId) throws TripBookingException {
 		
 //	  Optional<TripBooking> trip = tdao.findById(tripBooking.getTripId());
 //	  if(trip.isPresent()) {
 //		  tdao.delete(trip.get());
 //	  }
 //	  throw new TripBookingException("No trip found");
-		Optional<Customer> customer = cdao.findById(tripBooking.getCustomerId());
+		Optional<Customer> customer = cdao.findById(customerId);
 		if(customer.isPresent()) {
 			Customer cus = customer.get();
 			List<TripBooking> tripB = cus.getTripBooking();
@@ -107,7 +107,7 @@ public class TripBookingServiceImpl implements TripBookingService{
 			return "No Trip found";
  			
 		}else {
-			throw new TripBookingException("Customer not found with id :"+ tripBooking.getCustomerId());
+			throw new TripBookingException("Customer not found with id :"+ customerId);
 		}
 		
 	}
@@ -165,16 +165,16 @@ public class TripBookingServiceImpl implements TripBookingService{
 
 
 	@Override
-	public BillDetails generateBill(TripBookingDTO tripBooking) throws TripBookingException {
+	public BillDetails generateBill(Integer customerId, Integer tripBookingId) throws TripBookingException {
 		// TODO Auto-generated method stub
-		Customer customer = cdao.findById(tripBooking.getCustomerId()).get();
+		Customer customer = cdao.findById(customerId).get();
          if(customer == null) {
 			throw new TripBookingException("customer not found");
 		}	
-		TripBooking tripB = tdao.findById(tripBooking.getTripId()).get();
+		TripBooking tripB = tdao.findById(tripBookingId).get();
 	    if(tripB == null) throw new TripBookingException("trip with given id does not exist");
 	    
-	    if(tripBooking.getCustomerId() == tripB.getCustomer().getCustomerId()) {
+	    if(customerId== tripB.getCustomer().getCustomerId()) {
 	    	 if(tripB.isStatus() == false) throw new TripBookingException("Trip not completed yet");
 	    	 
 	    	 BillDetails billDetails = new BillDetails();
