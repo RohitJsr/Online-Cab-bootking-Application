@@ -31,9 +31,8 @@ public class AdminController {
 	@Autowired
 	private AdminService AService;
 	
-	@Autowired
-	 public TripBookingService tripBookingService;
 	
+	private TripBookingService tripBookingService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) throws AdminException {
@@ -76,7 +75,13 @@ public class AdminController {
 		return new ResponseEntity<List<TripBooking>>(savedBooking,HttpStatus.OK);	
 	
 	}
-	
+	@GetMapping("/getAllTripsByCab/{cabId}")
+	public ResponseEntity<List<TripBooking>> getAllTripsByCab(@PathVariable("cabId") Integer cabId) throws AdminException{
+		
+		List<TripBooking> tripBooking = AService.getAllTripsByCab(cabId);
+		
+		return new ResponseEntity<List<TripBooking>>(tripBooking,HttpStatus.OK);
+	}
 	
 
 }
