@@ -46,7 +46,7 @@ public class DriverController {
 	}
 	
 	@PutMapping("/update")
-	public  ResponseEntity<Driver> updateCustomer(@Valid @RequestBody Driver driver,@RequestParam(required = false) String key ) throws DriverException {
+	public  ResponseEntity<Driver> updateCustomer(@Valid @RequestBody DriverDTO driver,@RequestParam(required = false) String key ) throws DriverException {
 		
 		
 		Driver updatedCustomer= dService.updateDriver(driver, key);
@@ -62,7 +62,7 @@ public class DriverController {
 		return new ResponseEntity<String>(DeleteDriver,HttpStatus.OK);
 	}
 	
-	@GetMapping("/tripcompleted{driverId}")
+	@GetMapping("/tripCompleted{driverId}")
 	public ResponseEntity<String> tripCompletionHandler(@PathVariable("driverId") Integer driverId) throws TripBookingException{
 		String mess = tripBookingService.calculateBill(driverId);
 		return  new ResponseEntity<String>(mess,HttpStatus.OK);

@@ -1,6 +1,7 @@
 package com.masai.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class DriverServiceImpl implements DriverService{
 		
 
 	@Override
-	public Driver updateDriver(Driver driver, String key) throws DriverException{
+	public Driver updateDriver(DriverDTO driver, String key) throws DriverException{
 	
 		CurrentUserSession loggedInUser= sDao.findByUuid(key);
 		
@@ -79,8 +80,24 @@ public class DriverServiceImpl implements DriverService{
 		
 		
 		if(driver.getDriverId() == loggedInUser.getUserId()) {
+			
+			
+			Driver d= dDao.findById(driver.getDriverId()).get();
+			Cab cb = d.getCab();
+			d.setMobileNumber(driver.getMobileNumber());
+			d.setUsername(driver.getUsername());
+			d.setPassword(driver.getPassword());
+			d.setAddress(driver.getAddress());
+			d.setEmail(driver.getEmail());
+			cb.setCabtype(driver.getCarType());
+			cb.setNumberPlate(driver.getNumberPlate());
+			cb.setRatePerKms(driver.getRatePerKms());
+			
+	    	dDao.save(d);
+			
+	    	return d;
 		
-			return dDao.save(driver);
+			
 		}
 		else
 			throw new DriverException("Invalid Driver Details, please login first");
