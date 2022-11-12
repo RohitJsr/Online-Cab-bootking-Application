@@ -55,16 +55,16 @@ public class DriverController {
 		
 	}
 	@DeleteMapping("/delete")
-	public ResponseEntity<String> deleteCustomer(DriverDTO driver) throws DriverException{
+	public ResponseEntity<String> deleteCustomer(DriverDTO driver,@RequestParam String key) throws DriverException{
 		
-		String DeleteDriver = dService.deleteDriver(driver);
+		String DeleteDriver = dService.deleteDriver(driver,key);
 		
 		return new ResponseEntity<String>(DeleteDriver,HttpStatus.OK);
 	}
 	
-	@GetMapping("/tripCompleted{driverId}")
-	public ResponseEntity<String> tripCompletionHandler(@PathVariable("driverId") Integer driverId) throws TripBookingException{
-		String mess = tripBookingService.calculateBill(driverId);
+	@GetMapping("/tripCompleted")
+	public ResponseEntity<String> tripCompletionHandler(@RequestParam Integer driverId,@RequestParam String key) throws TripBookingException{
+		String mess = tripBookingService.calculateBill(driverId,key);
 		return  new ResponseEntity<String>(mess,HttpStatus.OK);
 	}
 

@@ -14,7 +14,7 @@ public interface DriverService {
 	
 	public  Driver updateDriver(DriverDTO Driver,String key)throws DriverException;
 	
-	public String deleteDriver(DriverDTO driver) throws DriverException;
+	public String deleteDriver(DriverDTO driver ,String key) throws DriverException;
 	
 
 

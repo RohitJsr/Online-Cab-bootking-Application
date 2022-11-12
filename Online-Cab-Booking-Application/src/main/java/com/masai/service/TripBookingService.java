@@ -15,7 +15,7 @@ public interface TripBookingService {
 	
 	public List<TripBooking> viewAllTripsCustomer(int customerld,String key) throws TripBookingException;
 	
-	public String calculateBill(Integer DriverId) throws TripBookingException;
+	public String calculateBill(Integer DriverId,String key) throws TripBookingException;
 	
 	public BillDetails generateBill(Integer customerId, Integer tripBookingId,String key) throws TripBookingException;
 	
