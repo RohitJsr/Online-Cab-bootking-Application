@@ -1,15 +1,22 @@
 package com.masai.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.masai.repository.CustomerDao;
+import com.masai.repository.DriverDao;
 import com.masai.repository.SessionDao;
+import com.masai.repository.TripBookingDao;
 import com.masai.exceptions.CustomerException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
+import com.masai.model.Driver;
+import com.masai.model.DriverDTO;
+import com.masai.model.TripBooking;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -19,6 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private SessionDao sDao;
+	
+	@Autowired
+	private DriverDao ddao;
 	
 	
 	@Override
@@ -62,13 +72,29 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer deleteCustomer(Customer customer ) throws CustomerException {
+	public String deleteCustomer(Customer customer ) throws CustomerException {
 		// TODO Auto-generated method stub
-		Customer c = cDao.findByCustomerId(customer.getCustomerId());
+		Optional<Customer> c = cDao.findById(customer.getCustomerId());
 		
-		if(c != null) {
-			cDao.delete(c);
-			return c;
+		
+		if(c.isPresent()) {
+			Customer cust = c.get();
+		//List<TripBooking> tripDetailsList = cust.getTripBooking();
+		//if(tripDetailsList.size() > 0) {
+		//	if(tripDetailsList.get(tripDetailsList.size() -1).isStatus() == false) {
+		//		  Driver driver = tripDetailsList.get(tripDetailsList.size()-1).getDriver();
+			//	  driver.setAvailablity(true);
+			//	  ddao.save(driver);
+			//	  tripDetailsList.remove(tripDetailsList.size()-1);
+			//	  cDao.save(cust);
+				  
+				  
+			//}
+	//	}
+		
+		cDao.delete(cust);
+		return "Customer with id : "+customer.getCustomerId()+" deleted"; 
+		
 		}else {
 			throw new CustomerException("Customer not found with Id : " +customer.getCustomerId());
 		}
@@ -101,10 +127,6 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 
 	}
-    
-	
-		
-		
 	}
 
 

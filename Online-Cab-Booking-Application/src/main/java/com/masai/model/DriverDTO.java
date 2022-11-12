@@ -16,5 +16,7 @@ private String licenseNumber;
 	private Float ratePerKms;
 	
 	private String carType;
+	
+	private int driverId;
 
 }

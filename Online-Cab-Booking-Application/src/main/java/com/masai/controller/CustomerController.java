@@ -55,11 +55,11 @@ public class CustomerController {
 	}
 	
 	@DeleteMapping("/delete")
-	public ResponseEntity<Customer> deleteCustomer(@RequestBody Customer customer) throws CustomerException{
+	public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) throws CustomerException{
 		
-		Customer DeleteCustomer = cService.deleteCustomer(customer);
+		String DeleteCustomer = cService.deleteCustomer(customer);
 		
-		return new ResponseEntity<Customer>(DeleteCustomer,HttpStatus.OK);
+		return new ResponseEntity<String>(DeleteCustomer,HttpStatus.OK);
 	}
 	
 	@GetMapping("/viewAll")
@@ -76,7 +76,7 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
 		
 	}
-	@PostMapping("gnerateBill")
+	@PostMapping("generateBill")
 	public ResponseEntity<BillDetails> generateBillHandler(@RequestBody TripBookingDTO tripBooking) throws TripBookingException{
 		BillDetails billDetails = tService.generateBill(tripBooking);
 		return new ResponseEntity<BillDetails>(billDetails,HttpStatus.OK);
