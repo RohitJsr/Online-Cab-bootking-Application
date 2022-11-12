@@ -21,14 +21,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer extends User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerId;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer",orphanRemoval = true)
-   @JsonIgnore
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", orphanRemoval = true)
+	@JsonIgnore
 	private List<TripBooking> tripBooking = new ArrayList<>();
-	
 
 }

@@ -12,5 +12,5 @@ import com.masai.model.CabType;
 public interface CabDao extends JpaRepository<Cab, Integer> {
 
 	public Cab findByNumberPlate(String number);
-	
+
 }

@@ -17,27 +17,22 @@ import com.masai.service.LoginService;
 @RestController
 public class LoginDriverController {
 
-	
 	@Autowired
 	private DriverLoginService driverLogin;
-	
+
 	@PostMapping("/loginDriver")
 	public ResponseEntity<String> logIn(@RequestBody LoginDTO dto) throws LoginException {
-		
-		String result = driverLogin.logIntoAccount(dto);
-		
 
-		
-		return new ResponseEntity<String>(result,HttpStatus.OK );
-		
-		
+		String result = driverLogin.logIntoAccount(dto);
+
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/logoutDriver")
 	public String logout(@RequestParam(required = false) String key) throws LoginException {
 		return driverLogin.logOutFromAccount(key);
-		
+
 	}
-	
-	
+
 }
