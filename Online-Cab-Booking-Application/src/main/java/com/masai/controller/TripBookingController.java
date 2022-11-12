@@ -50,12 +50,7 @@ public class TripBookingController {
 	
 	}
 	
-//
-//	@GetMapping("/tripbookingBill/{customerid}")
-//	public ResponseEntity<BillDetails> calculateBill(@PathVariable("customerid") Integer customerId) throws TripBookingException{
-//		
-//		
-//	    
-//	}
+	
+
 
 }

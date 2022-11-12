@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.DriverException;
+import com.masai.exceptions.TripBookingException;
 import com.masai.model.Customer;
 import com.masai.model.Driver;
 import com.masai.model.DriverDTO;
+import com.masai.model.TripBookingDTO;
 import com.masai.service.DriverService;
+import com.masai.service.TripBookingService;
 
 @RestController
 @RequestMapping(value = "/driver")
@@ -28,6 +31,9 @@ public class DriverController {
 	
 	@Autowired
 	private DriverService dService;
+	
+	@Autowired
+	private TripBookingService tripBookingService;
 	
 	
 	@PostMapping("/create")
@@ -56,5 +62,10 @@ public class DriverController {
 		return new ResponseEntity<Driver>(DeleteDriver,HttpStatus.OK);
 	}
 	
+	@GetMapping("/tripcompleted{driverId}")
+	public ResponseEntity<String> tripCompletionHandler(@PathVariable("driverId") Integer driverId) throws TripBookingException{
+		String mess = tripBookingService.calculateBill(driverId);
+		return  new ResponseEntity<String>(mess,HttpStatus.OK);
+	}
 
 }

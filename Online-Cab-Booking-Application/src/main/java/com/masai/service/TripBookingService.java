@@ -14,6 +14,6 @@ public interface TripBookingService {
 	
 	public List<TripBooking> viewAllTripsCustomer(int customerld) throws TripBookingException;
 	
-	public TripBooking calculateBill(TripBookingDTO tripBooking) throws TripBookingException;
+	public String calculateBill(Integer DriverId) throws TripBookingException;
 
 }
