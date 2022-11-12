@@ -1,6 +1,6 @@
 package com.masai.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import javax.validation.Valid;
 
@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.CustomerException;
+import com.masai.exceptions.TripBookingException;
+import com.masai.model.BillDetails;
 import com.masai.model.Customer;
+import com.masai.model.TripBookingDTO;
 import com.masai.service.CustomerService;
+import com.masai.service.TripBookingService;
 
 @RestController
 @RequestMapping(value = "/customer")
@@ -28,6 +32,8 @@ public class CustomerController {
 	@Autowired
 	private CustomerService cService;
 	
+	@Autowired
+	private TripBookingService tService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
@@ -69,6 +75,11 @@ public class CustomerController {
 		
 		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
 		
+	}
+	@PostMapping("gnerateBill")
+	public ResponseEntity<BillDetails> generateBillHandler(@RequestBody TripBookingDTO tripBooking) throws TripBookingException{
+		BillDetails billDetails = tService.generateBill(tripBooking);
+		return new ResponseEntity<BillDetails>(billDetails,HttpStatus.OK);
 	}
 	
 
