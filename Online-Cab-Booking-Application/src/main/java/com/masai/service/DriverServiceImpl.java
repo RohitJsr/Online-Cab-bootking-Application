@@ -103,13 +103,28 @@ public class DriverServiceImpl implements DriverService{
 			throw new DriverException("Invalid Driver Details, please login first");
 	}
 	@Override
-	public String deleteDriver(DriverDTO driver) throws DriverException {
+	public String deleteDriver(DriverDTO driver, String key) throws DriverException {
+		
+		
+	CurrentUserSession loggedInUser= sDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new DriverException("Please provide a valid key to update a Driver");
+		}
+		
+		
+		if(driver.getDriverId() == loggedInUser.getUserId()) {
+			
+			
 		// TODO Auto-generated method stub
 		
 		Driver driverDetails = dDao.findById(driver.getDriverId()).orElseThrow(() -> new DriverException("Driver does not exist with id : "+ driver.getDriverId()));
 		dDao.delete(driverDetails);
 		return "driver with id : " + driver.getDriverId() + " Deleted" ;
 	
+	}else {
+		throw new DriverException("Wrong Details please login first!");
+	}
 	}
 
 

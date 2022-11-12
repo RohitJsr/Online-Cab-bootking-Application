@@ -186,7 +186,19 @@ public class TripBookingServiceImpl implements TripBookingService{
 	}
 
 	@Override
-	public String calculateBill(Integer driverId) throws TripBookingException {
+	public String calculateBill(Integer driverId,String key) throws TripBookingException {
+           CurrentUserSession loggedInUser= sDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new TripBookingException("Please provide a valid key to update a customer");
+		}
+		
+		
+	
+		
+		if(driverId == loggedInUser.getUserId()) {
+			
+		
 	Optional<Driver> driver  = ddao.findById(driverId);
 		if(driver.isPresent()) {
 			Driver cabDriver = driver.get();
@@ -213,6 +225,10 @@ public class TripBookingServiceImpl implements TripBookingService{
 			
 		}else {
 			throw new TripBookingException("Driver does not exist with id"+ driverId);
+		}
+		
+		}else {
+			throw new TripBookingException("Wrong details please login first!");
 		}
 	
 		
