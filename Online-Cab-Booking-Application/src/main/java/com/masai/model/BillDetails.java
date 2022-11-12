@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BillDetails {
 	
-	private Float ratePerKms;
+	private double ratePerKms;
 	private Float distance;
 	private Float totalBill;
 	

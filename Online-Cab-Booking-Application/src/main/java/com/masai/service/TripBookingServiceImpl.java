@@ -159,10 +159,33 @@ public class TripBookingServiceImpl implements TripBookingService{
 		}else {
 			throw new TripBookingException("Driver does not exist with id"+ driverId);
 		}
-		
-		
-		
 	
+		
+	}
+
+
+	@Override
+	public BillDetails generateBill(TripBookingDTO tripBooking) throws TripBookingException {
+		// TODO Auto-generated method stub
+		Customer customer = cdao.findById(tripBooking.getCustomerId()).get();
+         if(customer == null) {
+			throw new TripBookingException("customer not found");
+		}	
+		TripBooking tripB = tdao.findById(tripBooking.getTripId()).get();
+	    if(tripB == null) throw new TripBookingException("trip with given id does not exist");
+	    
+	    if(tripBooking.getCustomerId() == tripB.getCustomer().getCustomerId()) {
+	    	 if(tripB.isStatus() == false) throw new TripBookingException("Trip not completed yet");
+	    	 
+	    	 BillDetails billDetails = new BillDetails();
+	    	 billDetails.setDistance(tripB.getDistanceInKm());
+	    	 billDetails.setRatePerKms(tripB.getDriver().getCab().getRatePerKms());
+	    	 billDetails.setTotalBill(tripB.getBill());
+	    	return billDetails;
+	    }
+		
+	    throw new TripBookingException("User not Verified");
+		
 		
 	}
 

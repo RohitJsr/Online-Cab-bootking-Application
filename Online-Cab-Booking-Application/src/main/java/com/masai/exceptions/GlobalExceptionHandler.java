@@ -51,6 +51,7 @@ public class GlobalExceptionHandler {
 	}
 	
 	
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> otherExceptionHandler(Exception se, WebRequest req){
 		
