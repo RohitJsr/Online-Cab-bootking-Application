@@ -8,6 +8,5 @@ import com.masai.model.CurrentUserSession;
 @Repository
 public interface SessionDao extends JpaRepository<CurrentUserSession, Integer> {
 
-	
-	public  CurrentUserSession  findByUuid(String uuid);
+	public CurrentUserSession findByUuid(String uuid);
 }

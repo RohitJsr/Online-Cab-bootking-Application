@@ -1,6 +1,6 @@
 package com.masai.controller;
 
-import java.util.List; 
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -32,100 +32,95 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService cService;
-	
+
 	@Autowired
 	private TripBookingService tService;
-	
+
 	@Autowired
-	 public TripBookingService tripBookingService;
-	
+	public TripBookingService tripBookingService;
+
 	@PostMapping("/create")
 	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
-		
-		Customer savedCustomer= cService.createCustomer(customer);
-		
-		
-		return new ResponseEntity<Customer>(savedCustomer,HttpStatus.CREATED);
+
+		Customer savedCustomer = cService.createCustomer(customer);
+
+		return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update")
-	public  ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer,@RequestParam(required = false) String key ) throws CustomerException {
-		
-		
-		Customer updatedCustomer= cService.updateCustomer(customer, key);
-				
-		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
-		
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer,
+			@RequestParam(required = false) String key) throws CustomerException {
+
+		Customer updatedCustomer = cService.updateCustomer(customer, key);
+
+		return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.OK);
+
 	}
-	
+
 	@DeleteMapping("/delete")
-	public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) throws CustomerException{
-		
+	public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) throws CustomerException {
+
 		String DeleteCustomer = cService.deleteCustomer(customer);
-		
-		return new ResponseEntity<String>(DeleteCustomer,HttpStatus.OK);
+
+		return new ResponseEntity<String>(DeleteCustomer, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/tripbooking")
-	public ResponseEntity<TripBooking> registerTripBooking(@RequestBody TripBookingDTO tripBooking) throws TripBookingException{
-		
-		TripBooking savedBooking=tripBookingService.insertTripBooking(tripBooking);
-		return new ResponseEntity<TripBooking>(savedBooking,HttpStatus.OK);	
-		
+	public ResponseEntity<TripBooking> registerTripBooking(@RequestBody TripBookingDTO tripBooking)
+			throws TripBookingException {
+
+		TripBooking savedBooking = tripBookingService.insertTripBooking(tripBooking);
+		return new ResponseEntity<TripBooking>(savedBooking, HttpStatus.OK);
+
 	}
+
 	@DeleteMapping("/canceltrip/{customerId}")
-	public ResponseEntity<String> deleteTripBooking(@PathVariable Integer customerId) throws TripBookingException{
-		
-	   String  deleteBooking=tripBookingService.deleteTripBooking(customerId);		
-		return new ResponseEntity<String>(deleteBooking,HttpStatus.OK);	
-	
+	public ResponseEntity<String> deleteTripBooking(@PathVariable Integer customerId) throws TripBookingException {
+
+		String deleteBooking = tripBookingService.deleteTripBooking(customerId);
+		return new ResponseEntity<String>(deleteBooking, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/tripbooking/{customerid}")
-	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId) throws TripBookingException{
-		
-		List<TripBooking> savedBooking=tripBookingService.viewAllTripsCustomer(customerId);		
-		return new ResponseEntity<List<TripBooking>>(savedBooking,HttpStatus.OK);	
-	
+	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId)
+			throws TripBookingException {
+
+		List<TripBooking> savedBooking = tripBookingService.viewAllTripsCustomer(customerId);
+		return new ResponseEntity<List<TripBooking>>(savedBooking, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/viewAll")
-	public ResponseEntity<List<Customer>> findAllCustomer() throws CustomerException{
-		
+	public ResponseEntity<List<Customer>> findAllCustomer() throws CustomerException {
+
 		List<Customer> customers = cService.viewCustomer();
-		
-		return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
+
+		return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
 	}
+
 	@GetMapping("/viewById/{customerId}")
-	public ResponseEntity<Customer> findCustomerById(@PathVariable("customerId") Integer customerId) throws CustomerException{
+	public ResponseEntity<Customer> findCustomerById(@PathVariable("customerId") Integer customerId)
+			throws CustomerException {
 		Customer customer = cService.viewCustomer(customerId);
-		
-		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
-		
+
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+
 	}
+
 	@GetMapping("/generateBill/{customerId}/{tripBookingId}")
-	public ResponseEntity<BillDetails> generateBillHandler(@PathVariable("customerId") Integer customerId, @PathVariable("tripBookingId") Integer tripBookingId) throws TripBookingException{
-		BillDetails billDetails = tService.generateBill(customerId,tripBookingId);
-		return new ResponseEntity<BillDetails>(billDetails,HttpStatus.OK);
+	public ResponseEntity<BillDetails> generateBillHandler(@PathVariable("customerId") Integer customerId,
+			@PathVariable("tripBookingId") Integer tripBookingId) throws TripBookingException {
+		BillDetails billDetails = tService.generateBill(customerId, tripBookingId);
+		return new ResponseEntity<BillDetails>(billDetails, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/Alltrips")
-	public ResponseEntity<List<TripBooking>>  allTrips() throws TripBookingException{
-		
+	public ResponseEntity<List<TripBooking>> allTrips() throws TripBookingException {
+
 		List<TripBooking> tripBooking = tripBookingService.getAllTrips();
-		
-		return new ResponseEntity<List<TripBooking>>(tripBooking,HttpStatus.OK);
+
+		return new ResponseEntity<List<TripBooking>>(tripBooking, HttpStatus.OK);
 	}
-	
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

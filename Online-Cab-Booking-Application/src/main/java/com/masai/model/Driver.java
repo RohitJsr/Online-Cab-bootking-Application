@@ -22,29 +22,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Driver extends User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer driverId;
 
-	
-    
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Cab cab;
-	
-	
-	@OneToMany(cascade = CascadeType.ALL,  mappedBy = "driver", orphanRemoval = true)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", orphanRemoval = true)
 	@JsonIgnore
 	List<TripBooking> tripBookingList = new ArrayList<>();
-	
-	
+
 	private String licenseNumber;
-	
-	
+
 	private Boolean availablity = true;
 
-
-
-	
 }

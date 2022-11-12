@@ -14,30 +14,24 @@ import com.masai.model.LoginDTO;
 import com.masai.service.AdminLoginService;
 import com.masai.service.DriverLoginService;
 
-
 @RestController
 public class LoginAdminController {
 
-	
-
 	@Autowired
 	private AdminLoginService adminLogin;
-	
+
 	@PostMapping("/loginAdmin")
 	public ResponseEntity<String> logIn(@RequestBody LoginDTO dto) throws LoginException {
-		
-		String result = adminLogin.logIntoAccount(dto);
-		
 
-		
-		return new ResponseEntity<String>(result,HttpStatus.OK );
-		
-		
+		String result = adminLogin.logIntoAccount(dto);
+
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/logoutAdmin")
 	public String logout(@RequestParam(required = false) String key) throws LoginException {
 		return adminLogin.logOutFromAccount(key);
-		
+
 	}
 }

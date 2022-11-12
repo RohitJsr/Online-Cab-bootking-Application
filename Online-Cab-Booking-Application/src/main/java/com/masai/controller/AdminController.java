@@ -2,7 +2,7 @@ package com.masai.controller;
 
 import java.util.List;
 
-import javax.validation.Valid; 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,61 +27,62 @@ import com.masai.service.TripBookingService;
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService AService;
-	
-	
+
 	private TripBookingService tripBookingService;
-	
+
 	@PostMapping("/create")
 	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) throws AdminException {
-		
+
 		Admin savedAdmin = AService.createAdmin(admin);
-		
-		
-		return new ResponseEntity<Admin>(savedAdmin,HttpStatus.CREATED);
+
+		return new ResponseEntity<Admin>(savedAdmin, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update")
-	public  ResponseEntity<Admin> updateAdmin(@Valid @RequestBody Admin admin,@RequestParam(required = false) String key ) throws AdminException {
-		
-		
-		Admin updatedCustomer= AService.updateAdmin(admin, key);
-				
-		return new ResponseEntity<Admin>(updatedCustomer,HttpStatus.OK);
-		
+	public ResponseEntity<Admin> updateAdmin(@Valid @RequestBody Admin admin,
+			@RequestParam(required = false) String key) throws AdminException {
+
+		Admin updatedCustomer = AService.updateAdmin(admin, key);
+
+		return new ResponseEntity<Admin>(updatedCustomer, HttpStatus.OK);
+
 	}
+
 	@DeleteMapping("/detete")
-	public ResponseEntity<Admin> deleteAdmin(@RequestBody Admin admin) throws AdminException{
-		
+	public ResponseEntity<Admin> deleteAdmin(@RequestBody Admin admin) throws AdminException {
+
 		Admin DeleteAdmin = AService.deleteAdmin(admin);
-		
-		return new ResponseEntity<Admin>(DeleteAdmin,HttpStatus.OK);
+
+		return new ResponseEntity<Admin>(DeleteAdmin, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/Alltrips")
-	public ResponseEntity<List<TripBooking>>  allTrips() throws TripBookingException{
-		
+	public ResponseEntity<List<TripBooking>> allTrips() throws TripBookingException {
+
 		List<TripBooking> tripBooking = tripBookingService.getAllTrips();
-		
-		return new ResponseEntity<List<TripBooking>>(tripBooking,HttpStatus.OK);
+
+		return new ResponseEntity<List<TripBooking>>(tripBooking, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/tripbooking/{customerid}")
-	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId) throws TripBookingException{
-		
-		List<TripBooking> savedBooking=tripBookingService.viewAllTripsCustomer(customerId);		
-		return new ResponseEntity<List<TripBooking>>(savedBooking,HttpStatus.OK);	
-	
+	public ResponseEntity<List<TripBooking>> allTripBooking(@PathVariable("customerid") Integer customerId)
+			throws TripBookingException {
+
+		List<TripBooking> savedBooking = tripBookingService.viewAllTripsCustomer(customerId);
+		return new ResponseEntity<List<TripBooking>>(savedBooking, HttpStatus.OK);
+
 	}
+
 	@GetMapping("/getAllTripsByCab/{cabId}")
-	public ResponseEntity<List<TripBooking>> getAllTripsByCab(@PathVariable("cabId") Integer cabId) throws AdminException{
-		
+	public ResponseEntity<List<TripBooking>> getAllTripsByCab(@PathVariable("cabId") Integer cabId)
+			throws AdminException {
+
 		List<TripBooking> tripBooking = AService.getAllTripsByCab(cabId);
-		
-		return new ResponseEntity<List<TripBooking>>(tripBooking,HttpStatus.OK);
+
+		return new ResponseEntity<List<TripBooking>>(tripBooking, HttpStatus.OK);
 	}
-	
 
 }
