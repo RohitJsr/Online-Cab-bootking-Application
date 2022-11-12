@@ -55,11 +55,11 @@ public class DriverController {
 		
 	}
 	@DeleteMapping("/delete")
-	public ResponseEntity<Driver> deleteCustomer(Driver driver) throws DriverException{
+	public ResponseEntity<String> deleteCustomer(DriverDTO driver) throws DriverException{
 		
-		Driver DeleteDriver = dService.deleteDriver(driver);
+		String DeleteDriver = dService.deleteDriver(driver);
 		
-		return new ResponseEntity<Driver>(DeleteDriver,HttpStatus.OK);
+		return new ResponseEntity<String>(DeleteDriver,HttpStatus.OK);
 	}
 	
 	@GetMapping("/tripcompleted{driverId}")

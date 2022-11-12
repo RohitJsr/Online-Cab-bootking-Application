@@ -86,12 +86,12 @@ public class DriverServiceImpl implements DriverService{
 			throw new DriverException("Invalid Driver Details, please login first");
 	}
 	@Override
-	public Driver deleteDriver(Driver driver) throws DriverException {
+	public String deleteDriver(DriverDTO driver) throws DriverException {
 		// TODO Auto-generated method stub
 		
 		Driver driverDetails = dDao.findById(driver.getDriverId()).orElseThrow(() -> new DriverException("Driver does not exist with id : "+ driver.getDriverId()));
 		dDao.delete(driverDetails);
-		return driver;
+		return "driver with id : " + driver.getDriverId() + " Deleted" ;
 	
 	}
 

@@ -34,7 +34,7 @@ public class Driver extends User {
 	private Cab cab;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "driver")
+	@OneToMany(cascade = CascadeType.ALL,  mappedBy = "driver", orphanRemoval = true)
 	@JsonIgnore
 	List<TripBooking> tripBookingList = new ArrayList<>();
 	
