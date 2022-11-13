@@ -47,7 +47,7 @@ admin who can also login and update their information as well as access the data
 
 
 ## Customer Features
-- Customer can login in the application and update their information using their username and password.
+- Customer can login in the application and update their information using their mobile number and password.
 - Customer can book trips using pickup location and destination.
 - Customer can access the bill after the trip is completed.
 
