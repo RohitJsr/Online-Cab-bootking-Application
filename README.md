@@ -4,6 +4,11 @@ We have create a REST API for online cab booking application which can be used b
 book cabs, by a driver to login and update their details along with their cab details and accept a ride from the customer. All this is over looked by the 
 admin who can also login and update their information as well as access the data in the application. 
 
+### ER-Diagram
+![ERDiagram](https://user-images.githubusercontent.com/54835356/201510759-1646e4d9-66f0-4372-994d-b7c399f6c615.jpg)
+
+### Database Schema
+![Database Schema](https://user-images.githubusercontent.com/54835356/201510762-ba22fda4-d738-433e-88b0-9de1190df9f2.jpg)
 
 ### This is a collaborative project, completed by a team of 5 backend developers at Masai School.
 
