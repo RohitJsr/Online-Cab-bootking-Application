@@ -43,7 +43,6 @@ admin who can also login and update their information as well as access the data
 - Data Authentication and Validation for all the users (Admin, Customer and Cab Driver)
 
 ## Admin Features
-- Admin can access all the information of customer, cab driver and cab.
 - Admin can access all Trip Details along with specific trip details using a particular cab or a customer.
 
 
