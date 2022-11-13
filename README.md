@@ -126,7 +126,7 @@ http://localhost:8888/swagger-ui/
 | `PUT` | `Update` | `http://localhost:8888/admin/update` | Update Admin |
 | `DELETE` | `Delete` | `http://localhost:8888/admin/delete` | Delete Admin |
 | `POST` | `Get All Trip` | `http://localhost:8888/admin/getalltrips` | Show All Trip |
-| `DELETE` | `Get Trip By Cab` | `http://localhost:8888/admin/getalltripsbycab/{cabId}` | Get All Trip By Cab ID |
+| `GET` | `Get Trip By Cab` | `http://localhost:8888/admin/getalltripsbycab/{cabId}` | Get All Trip By Cab ID |
 
 
 
